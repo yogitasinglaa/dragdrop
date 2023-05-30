@@ -1,5 +1,6 @@
 body {
     margin: 0px;
+    cursor: default;
 }
 
 table {
@@ -16,7 +17,6 @@ td {
 .box {
     margin-left: 500px;
     margin-top: 50px;
-
     width: 100px;
     height: 100px;
     position: absolute;
@@ -32,15 +32,15 @@ td {
 
 .btn{
     margin-top: 10x;
-    margin-left: 1200px;
+    margin-left: 1190px;
 }
 
-#undoButton {
-    
-    background-color: #651ba6;
+#undoButton{
+    position: fixed;
+    background-color: #579aa3;
     border: none;
     color: white;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -49,4 +49,19 @@ td {
     cursor: pointer;
     border-radius: 12px;
 
+}
+
+.row{
+  
+    background-color: #579aa3;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
 }
