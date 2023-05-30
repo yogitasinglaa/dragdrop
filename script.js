@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleDrop(e) {
         // console.log("handleDrop");
+        // stopPropagation ensuring that the event does not trigger additional event handlers on ancestor elements.
         if (e.stopPropagation) {
             e.stopPropagation();
         }
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             dest["innerHTML"] = this.innerHTML;
             dest["id"] = this.id;
             dest["color"] = this.style.backgroundColor;
-            
+
             this.innerHTML = e.dataTransfer.getData("text/html");
             let color1 = dragSrcElement.style.backgroundColor;
 
@@ -74,6 +75,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let colors = ["orange", "#874e4e", "hsl(203, 40%, 23%)", "#00BABA", "#FAC286", "#11EB11", "pale",
         "pink", "purple", "cyan", "hsl(66, 72%, 58%)", "olive", "grey", "#29676f"];
+    let undoButton = document.getElementById("undoButton");
+    let addRowButton = document.getElementById("addRow");
+
+
+    const tableOfBoxes = document.getElementById("tableOfBoxes");
+    const addRows = () => {
+        let boxInput = 1000;
+        tableOfBoxes.innerHTML += `<tr>
+            <td><div id="box${boxes.length + 1}" class="box" draggable="true">${(boxes.length + 1)*100}</div></td>
+            <td><div id="box${boxes.length + 2}" class="box" draggable="true">${(boxes.length + 2)*100}</div></td>
+            <td><div id="box${boxes.length + 3}" class="box" draggable="true">${(boxes.length + 3)*100}</div></td>
+            </tr>`;
+
+        boxes = document.getElementsByClassName("box");
+        for (let i = 0; i < boxes.length; i++) {
+            let random_color = colors[Math.floor(Math.random() * colors.length)];
+            boxes[i].addEventListener("dragstart", handleDragStart, false);
+            boxes[i].addEventListener("dragover", handleDragOver, false);
+            boxes[i].addEventListener("drop", handleDrop, false);
+            boxes[i].addEventListener("dragend", handleDragEnd, false);
+            boxes[i].style.backgroundColor = random_color;
+        }
+    };
+
     for (let i = 0; i < boxes.length; i++) {
 
         let random_color = colors[Math.floor(Math.random() * colors.length)];
@@ -84,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         boxes[i].addEventListener("dragend", handleDragEnd, false);
         boxes[i].style.backgroundColor = colors[i];
     }
-    let undoButton = document.getElementById("undoButton");
+
 
     const undoLastAction = () => {
 
@@ -102,6 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     undoButton.addEventListener("click", undoLastAction);
+    addRowButton.addEventListener("click", addRows);
+
 
 });
 
